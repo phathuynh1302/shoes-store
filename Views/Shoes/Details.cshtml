@@ -1,0 +1,188 @@
+﻿@model PRN211_ShoesStore.Models.Entity.Shoes
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<main class="bg_gray">
+    <div class="container margin_30">
+        <div class="page_header">
+            <h1>@Html.DisplayFor(model => model.name)</h1>
+        </div>
+        <!-- /page_header -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="owl-carousel owl-theme prod_pics magnific-gallery">
+                    @*	                    <div class="item">
+                        <a href="~img/products/shoes/product_detail_1.jpg" title="Photo title" data-effect="mfp-zoom-in"><img src="img/products/shoes/product_detail_1.jpg" data-src="@Html.DisplayFor(model => model.image)" alt=""></a>
+                        </div>*@
+                    <!-- /item -->
+                    <div class="item">
+                        <a href="~img/products/shoes/product_detail_2.jpg" title="Photo title" data-effect="mfp-zoom-in"><img style="width: 100%" src="img/products/product_placeholder_detail_2.jpg" data-src="@Html.DisplayFor(model => model.image)" alt="" class="owl-lazy"></a>
+                    </div>
+                    <!-- /item -->
+                </div>
+                <!-- /carousel -->
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+
+    <div class="bg_white">
+        <div class="container margin_60_35">
+            <div class="row justify-content-between">
+                <div class="col-lg-6">
+                    <div class="prod_info version_2">
+                        <span class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i><em>4 reviews</em></span>
+                        <p><larg style="font-weight:bold">Shoe Description</larg><br>@Html.DisplayFor(model => model.shoesDetails)</p>
+                        <p>Your choice is a great contribution to us. Thank you for viewing our products.</p>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="prod_options version_2">
+                        <div class="row">
+                            <label class="col-xl-7 col-lg-5  col-md-6 col-6 pt-0"><strong>Color</strong></label>
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-6 colors">
+                                <ul>
+                                    <div>Thiếu color rồi</div>
+                                    @*	<li><a href="#0" class="color color_1 active"></a></li>
+                                        <li><a href="#0" class="color color_2"></a></li>
+                                        <li><a href="#0" class="color color_3"></a></li>
+                                        <li><a href="#0" class="color color_4"></a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-xl-7 col-lg-5 col-md-6 col-6"><strong>Size</strong> - Size Guide <a href="#0" data-toggle="modal" data-target="#size-modal"><i class="ti-help-alt"></i></a></label>
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-6">
+                                <div class="custom-select-form">
+                                    <select class="wide">
+                                        <option value="" selected="">Small (S)</option>
+                                        <option value="">M</option>
+                                        <option value=" ">L</option>
+                                        <option value=" ">XL</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:10px" class="row">
+                            <label class="col-xl-7 col-lg-5  col-md-6 col-6"><strong>Quantity</strong></label>
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-6">
+                                <div class="numbers-row">
+                                    <input type="text" value="1" id="quantity_1" class="qty2" name="quantity_1">
+                                    <div class="inc button_inc">+</div>
+                                    <div class="dec button_inc">-</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:10px" class="row">
+                            <label class="col-xl-7 col-lg-5  col-md-6 col-6 pt-0"><strong>Quantity available</strong></label>
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-6 colors">
+                                <div style="text-align:center"> @Html.DisplayFor(model => model.quantity) Shoes</div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-lg-7 col-md-6">
+                                <div class="price_main"><span class="new_price">$@Html.DisplayFor(model => model.price)</span><span class="percentage">-20%</span> <span class="old_price">$160.00</span></div>
+                            </div>
+                            
+                            <div class="col-lg-5 col-md-6">
+                                <div class="btn_add_to_cart"><a href="https://localhost:44326/Cart/AddToCart?price=@Model.price&specificallyShoesId=@Model.id" class="btn_1">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+    </div>
+    <!-- /bg_white -->
+
+    <div class="tabs_product bg_white version_2">
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a id="tab-B" href="#pane-B" class="nav-link active" data-toggle="tab" role="tab">Reviews</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /tabs_product -->
+
+    <div class="tab_content_wrapper">
+        <div class="container">
+            <div class="tab-content" role="tablist">
+                <!-- /TAB A -->
+                <div id="pane-B" class="card tab-pane fade active show" role="tabpanel" aria-labelledby="tab-B">
+                    <div id="collapse-B" class="tab" role="tabpanel" aria-labelledby="heading-B">
+                        <div class="card-body">
+                            <div class="row justify-content-between">
+                                <div class="col-lg-5">
+                                    <div class="review_content">
+                                        <div class="clearfix add_bottom_10">
+                                            <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><em>5.0/5.0</em></span>
+                                            <em>Published 54 minutes ago</em>
+                                        </div>
+                                        <h4>"Commpletely satisfied"</h4>
+                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="review_content">
+                                        <div class="clearfix add_bottom_10">
+                                            <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star empty"></i><i class="icon-star empty"></i><em>4.0/5.0</em></span>
+                                            <em>Published 1 day ago</em>
+                                        </div>
+                                        <h4>"Always the best"</h4>
+                                        <p>Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                            <div class="row justify-content-between">
+                                <div class="col-lg-5">
+                                    <div class="review_content">
+                                        <div class="clearfix add_bottom_10">
+                                            <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star empty"></i><em>4.5/5.0</em></span>
+                                            <em>Published 3 days ago</em>
+                                        </div>
+                                        <h4>"Outstanding"</h4>
+                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="review_content">
+                                        <div class="clearfix add_bottom_10">
+                                            <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><em>5.0/5.0</em></span>
+                                            <em>Published 4 days ago</em>
+                                        </div>
+                                        <h4>"Excellent"</h4>
+                                        <p>Sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                            <p class="text-right"><a href="leave-review.html" class="btn_1">Leave a review</a></p>
+                        </div>
+                        <!-- /card-body -->
+                    </div>
+
+                </div>
+                <!-- /tab B -->
+            </div>
+            <!-- /tab-content -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /tab_content_wrapper -->
+
+    <div class="bg_white">
+        <div class="container margin_60_35">
+            <!-- /products_carousel -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /bg_white -->
+</main>
+<!-- /main -->
