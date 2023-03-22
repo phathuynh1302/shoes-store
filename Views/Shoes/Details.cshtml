@@ -1,0 +1,219 @@
+﻿@model PRN211_ShoesStore.Models.Entity.Shoes
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<main style="background-color: #ECEFF1">
+    <div class="container margin_30">
+        <div class="page_header">
+            <h1>@Html.DisplayFor(model => model.name)</h1>
+        </div>
+        <!-- /page_header -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="owl-carousel owl-theme prod_pics magnific-gallery">
+                    @*	                    <div class="item">
+                    <a href="~img/products/shoes/product_detail_1.jpg" title="Photo title" data-effect="mfp-zoom-in"><img src="img/products/shoes/product_detail_1.jpg" data-src="@Html.DisplayFor(model => model.image)" alt=""></a>
+                    </div>*@
+                    <!-- /item -->
+                    <div class="item">
+                        <a href="~img/products/shoes/product_detail_2.jpg" title="Photo title" data-effect="mfp-zoom-in"><img style="width: 100%" src="img/products/product_placeholder_detail_2.jpg" data-src="@Html.DisplayFor(model => model.image)" alt="" class="owl-lazy"></a>
+                    </div>
+                    <!-- /item -->
+                </div>
+                <!-- /carousel -->
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+
+    <div class="bg_white">
+        <div class="container margin_60_35">
+            <div class="row justify-content-between">
+                <div class="col-lg-6">
+                    <div class="prod_info version_2">
+                        <span class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i><em>4 reviews</em></span>
+                        <p><larg style="font-weight:bold">Shoe Description</larg><br>@Html.DisplayFor(model => model.shoesDetails)</p>
+                        <p>Thank you for trusting and buying our products. </br> The fact that you choose to buy shoes from us is not only a very valuable thing but also a great encouragement to us. </br> With your support, we will continue to work hard and improve the quality of our products so that we can better meet the needs of our customers.</p>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="prod_options version_2">
+                        <div class="row">
+                            <label class="col-xl-7 col-lg-5  col-md-6 col-6 pt-0"><strong>Color</strong></label>
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-6 colors">
+                                @*  <ul>*@
+                                <div style="position: relative; top: -10px;" class="custom-select-form">
+                                    <select class="wide">
+                                        <option value="black" selected="">Black</option>
+                                        <option value="White">White</option>
+
+                                    </select>
+                                </div>
+                                @*	<li><a href="#0" class="color color_1 active"></a></li>
+                                <li><a href="#0" class="color color_2"></a></li>
+                                <li><a href="#0" class="color color_3"></a></li>
+                                <li><a href="#0" class="color color_4"></a></li>*@
+                                @* </ul>*@
+                            </div>
+                        </div>
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                            <div class="row">
+                                <label class="col-xl-7 col-lg-5 col-md-6 col-6"><strong>Size</strong> - Size Guide <a href="#0" data-toggle="modal" data-target="#size-modal"><i class="ti-help-alt"></i></a></label>
+                                <div class="col-xl-5 col-lg-5 col-md-6 col-6">
+                                    <div class="custom-select-form">
+                                        <select name="size" class="wide">
+                                            <option value="43" selected="">43</option>
+                                            <option value="44">44</option>
+                                            <option value="45">45</option>
+                                            <option value="46">46</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:10px" class="row">
+                                <label class="col-xl-7 col-lg-5  col-md-6 col-6"><strong>Quantity</strong></label>
+                                <div class="col-xl-5 col-lg-5 col-md-6 col-6">
+                                    <div class="numbers-row">
+                                        <input type="number" value="1" id="quantity_1" class="qty2" name="quantity">
+                                        <div class="inc button_inc">+</div>
+                                        <div class="dec button_inc">-</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:10px" class="row">
+                                <label class="col-xl-7 col-lg-5  col-md-6 col-6 pt-0"><strong>Quantity available</strong></label>
+                                <div class="col-xl-5 col-lg-5 col-md-6 col-6 colors">
+                                    <div style="text-align:center"> @Html.DisplayFor(model => model.quantity) Shoes</div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-lg-7 col-md-6">
+                                    <div class="price_main">
+                                        <span class="new_price">
+                                            @Html.DisplayFor(model => model.price)
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5 col-md-6">
+                                    <input type="hidden" name="price" value="@Model.price" />
+                                    <input type="hidden" name="shoesId" value="@Model.id" />
+                                    <div class="btn_add_to_cart"><button type="submit" class="btn_1">Add to Cart</button></div>
+                                    @*<div class="btn_add_to_cart"><a href="https://localhost:44326/Cart/AddToCart?price=@Model.price&shoesId=@Model.id" class="btn_1">Add to Cart</a></div>*@
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+    </div>
+    <!-- /bg_white -->
+    @*<div class="tabs_product bg_white version_2">
+    <div class="container">
+    <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+    <a id="tab-B" href="#pane-B" class="nav-link active" data-toggle="tab" role="tab">Reviews</a>
+    </li>
+    </ul>
+    </div>
+    </div>*@
+    <!-- /tabs_product -->
+    @*<div class="tab_content_wrapper">
+    <div class="container">
+    <div class="tab-content" role="tablist">
+    <div id="pane-B" class="card tab-pane fade active show" role="tabpanel" aria-labelledby="tab-B">
+    <div id="collapse-B" class="tab" role="tabpanel" aria-labelledby="heading-B">
+    <div class="card-body">
+    <div class="row justify-content-between">
+    <div class="col-lg-5">
+    <div class="review_content">
+    <div class="clearfix add_bottom_10">
+    <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><em>5.0/5.0</em></span>
+    <em>Published 54 minutes ago</em>
+    </div>
+    <h4>"Commpletely satisfied"</h4>
+    <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+    </div>
+    </div>
+    <div class="col-lg-5">
+    <div class="review_content">
+    <div class="clearfix add_bottom_10">
+    <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star empty"></i><i class="icon-star empty"></i><em>4.0/5.0</em></span>
+    <em>Published 1 day ago</em>
+    </div>
+    <h4>"Always the best"</h4>
+    <p>Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+    </div>
+    </div>
+    </div>
+    <div class="row justify-content-between">
+    <div class="col-lg-5">
+    <div class="review_content">
+    <div class="clearfix add_bottom_10">
+    <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star empty"></i><em>4.5/5.0</em></span>
+    <em>Published 3 days ago</em>
+    </div>
+    <h4>"Outstanding"</h4>
+    <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+    </div>
+    </div>
+    <div class="col-lg-5">
+    <div class="review_content">
+    <div class="clearfix add_bottom_10">
+    <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><em>5.0/5.0</em></span>
+    <em>Published 4 days ago</em>
+    </div>
+    <h4>"Excellent"</h4>
+    <p>Sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
+    </div>
+    </div>
+    </div>
+    <p class="text-right"><a href="leave-review.html" class="btn_1">Leave a review</a></p>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>*@
+    <!-- /tab_content_wrapper -->
+    <div class="feat">
+        <div class="container">
+            <ul>
+                <li>
+                    <div class="box">
+                        <i class="ti-gift"></i>
+                        <div class="justify-content-center">
+                            <h3>Free Shipping</h3>
+                            <p>For all oders over $99</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="box">
+                        <i class="ti-wallet"></i>
+                        <div class="justify-content-center">
+                            <h3>Secure Payment</h3>
+                            <p>100% secure payment</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="box">
+                        <i class="ti-headphone-alt"></i>
+                        <div class="justify-content-center">
+                            <h3>24/7 Support</h3>
+                            <p>Online top support</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+<!-- /main -->

@@ -1,0 +1,291 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Content Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.5.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+   <None Include="wwwroot\css\.DS_Store" />
+    <None Include="wwwroot\css\about.css" />
+    <None Include="wwwroot\css\account.css" />
+    <None Include="wwwroot\css\ajax-loader.gif" />
+    <None Include="wwwroot\css\blog.css" />
+    <None Include="wwwroot\css\bootstrap.css" />
+    <None Include="wwwroot\css\bootstrap.custom.css" />
+    <None Include="wwwroot\css\bootstrap.custom.min.css" />
+    <None Include="wwwroot\css\bootstrap.min.css" />
+    <None Include="wwwroot\css\cart.css" />
+    <None Include="wwwroot\css\checkout.css" />
+    <None Include="wwwroot\css\contact.css" />
+    <None Include="wwwroot\css\custom.css" />
+    <None Include="wwwroot\css\error_track.css" />
+    <None Include="wwwroot\css\faq.css" />
+    <None Include="wwwroot\css\fonts\.DS_Store" />
+    <None Include="wwwroot\css\fonts\fontello.eot" />
+    <None Include="wwwroot\css\fonts\fontello.svg" />
+    <None Include="wwwroot\css\fonts\fontello.ttf" />
+    <None Include="wwwroot\css\fonts\fontello.woff" />
+    <None Include="wwwroot\css\fonts\fontello.woff2" />
+    <None Include="wwwroot\css\fonts\fontello_and_header_icons.html" />
+    <None Include="wwwroot\css\fonts\header_icons.eot" />
+    <None Include="wwwroot\css\fonts\header_icons.svg" />
+    <None Include="wwwroot\css\fonts\header_icons.ttf" />
+    <None Include="wwwroot\css\fonts\header_icons.woff" />
+    <None Include="wwwroot\css\fonts\themify-class-reference.html" />
+    <None Include="wwwroot\css\fonts\themify.eot" />
+    <None Include="wwwroot\css\fonts\themify.svg" />
+    <None Include="wwwroot\css\fonts\themify.ttf" />
+    <None Include="wwwroot\css\fonts\themify.woff" />
+    <None Include="wwwroot\css\home_1.css" />
+    <None Include="wwwroot\css\jquery.mmenu.all.css" />
+    <None Include="wwwroot\css\leave_review.css" />
+    <None Include="wwwroot\css\listing.css" />
+    <None Include="wwwroot\css\product_page.css" />
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\img\.DS_Store" />
+    <None Include="wwwroot\img\404.svg" />
+    <None Include="wwwroot\img\about_1.svg" />
+    <None Include="wwwroot\img\about_2.svg" />
+    <None Include="wwwroot\img\about_3.svg" />
+    <None Include="wwwroot\img\about_placeholder.jpg" />
+    <None Include="wwwroot\img\apple-touch-icon-114x114-precomposed.png" />
+    <None Include="wwwroot\img\apple-touch-icon-144x144-precomposed.png" />
+    <None Include="wwwroot\img\apple-touch-icon-57x57-precomposed.png" />
+    <None Include="wwwroot\img\apple-touch-icon-72x72-precomposed.png" />
+    <None Include="wwwroot\img\arrow_about.png" />
+    <None Include="wwwroot\img\arrow_left.svg" />
+    <None Include="wwwroot\img\arrow_right.svg" />
+    <None Include="wwwroot\img\avatar.jpg" />
+    <None Include="wwwroot\img\avatar1.jpg" />
+    <None Include="wwwroot\img\avatar2.jpg" />
+    <None Include="wwwroot\img\avatar3.jpg" />
+    <None Include="wwwroot\img\avatar4.jpg" />
+    <None Include="wwwroot\img\avatar5.jpg" />
+    <None Include="wwwroot\img\avatar6.jpg" />
+    <None Include="wwwroot\img\avatar7.jpg" />
+    <None Include="wwwroot\img\avatar8.jpg" />
+    <None Include="wwwroot\img\banners_cat_placeholder.jpg" />
+    <None Include="wwwroot\img\banner_1.jpg" />
+    <None Include="wwwroot\img\banner_2.jpg" />
+    <None Include="wwwroot\img\banner_3.jpg" />
+    <None Include="wwwroot\img\banner_menu.jpg" />
+    <None Include="wwwroot\img\banner_popup.png" />
+    <None Include="wwwroot\img\bg_cat_shoes.jpg" />
+    <None Include="wwwroot\img\blog-1.jpg" />
+    <None Include="wwwroot\img\blog-2.jpg" />
+    <None Include="wwwroot\img\blog-3.jpg" />
+    <None Include="wwwroot\img\blog-4.jpg" />
+    <None Include="wwwroot\img\blog-5.jpg" />
+    <None Include="wwwroot\img\blog-6.jpg" />
+    <None Include="wwwroot\img\blog-single.jpg" />
+    <None Include="wwwroot\img\blog-thumb-1.jpg" />
+    <None Include="wwwroot\img\blog-thumb-2.jpg" />
+    <None Include="wwwroot\img\blog-thumb-3.jpg" />
+    <None Include="wwwroot\img\blog-thumb-4.jpg" />
+    <None Include="wwwroot\img\blog-thumb-placeholder.jpg" />
+    <None Include="wwwroot\img\brands\logo_1.png" />
+    <None Include="wwwroot\img\brands\logo_2.png" />
+    <None Include="wwwroot\img\brands\logo_3.png" />
+    <None Include="wwwroot\img\brands\logo_4.png" />
+    <None Include="wwwroot\img\brands\logo_5.png" />
+    <None Include="wwwroot\img\brands\logo_6.png" />
+    <None Include="wwwroot\img\brands\placeholder_brands.png" />
+    <None Include="wwwroot\img\camera.svg" />
+    <None Include="wwwroot\img\cards_all.svg" />
+    <None Include="wwwroot\img\countdown_bg.svg" />
+    <None Include="wwwroot\img\credit-cards_amazon.svg" />
+    <None Include="wwwroot\img\credit-cards_amex.svg" />
+    <None Include="wwwroot\img\credit-cards_apple-pay.svg" />
+    <None Include="wwwroot\img\credit-cards_bitcoin.svg" />
+    <None Include="wwwroot\img\credit-cards_diners-club.svg" />
+    <None Include="wwwroot\img\credit-cards_discover.svg" />
+    <None Include="wwwroot\img\credit-cards_maestro.svg" />
+    <None Include="wwwroot\img\credit-cards_mastercard.svg" />
+    <None Include="wwwroot\img\credit-cards_paypal.svg" />
+    <None Include="wwwroot\img\credit-cards_visa.svg" />
+    <None Include="wwwroot\img\drag_icon.svg" />
+    <None Include="wwwroot\img\facebook_icon.svg" />
+    <None Include="wwwroot\img\favicon.ico" />
+    <None Include="wwwroot\img\featured_home.jpg" />
+    <None Include="wwwroot\img\iconfinder_user_male4_172628 %281%29.svg" />
+    <None Include="wwwroot\img\icon_access.svg" />
+    <None Include="wwwroot\img\icon_cart.svg" />
+    <None Include="wwwroot\img\icon_grid.svg" />
+    <None Include="wwwroot\img\icon_like.svg" />
+    <None Include="wwwroot\img\icon_search.svg" />
+    <None Include="wwwroot\img\img_cat_home_1.jpg" />
+    <None Include="wwwroot\img\img_cat_home_1_placeholder.png" />
+    <None Include="wwwroot\img\img_cat_home_2.jpg" />
+    <None Include="wwwroot\img\img_cat_home_2_placeholder.png" />
+    <None Include="wwwroot\img\img_cat_home_3.jpg" />
+    <None Include="wwwroot\img\img_cat_home_4.jpg" />
+    <None Include="wwwroot\img\img_cat_home_4_placeholder.png" />
+    <None Include="wwwroot\img\instagram_icon.svg" />
+    <None Include="wwwroot\img\logo.svg" />
+    <None Include="wwwroot\img\logo_black.svg" />
+    <None Include="wwwroot\img\menu-demo-1.jpg" />
+    <None Include="wwwroot\img\menu-demo-2.jpg" />
+    <None Include="wwwroot\img\menu-demo-3.jpg" />
+    <None Include="wwwroot\img\newsletter_img.jpg" />
+    <None Include="wwwroot\img\new_user.svg" />
+    <None Include="wwwroot\img\paypal.svg" />
+    <None Include="wwwroot\img\placeholder.png" />
+    <None Include="wwwroot\img\products\.DS_Store" />
+    <None Include="wwwroot\img\products\product_placeholder_detail.jpg" />
+    <None Include="wwwroot\img\products\product_placeholder_detail_2.jpg" />
+    <None Include="wwwroot\img\products\product_placeholder_square_medium.jpg" />
+    <None Include="wwwroot\img\products\product_placeholder_square_small.jpg" />
+    <None Include="wwwroot\img\products\shoes\.DS_Store" />
+    <None Include="wwwroot\img\products\shoes\1.jpg" />
+    <None Include="wwwroot\img\products\shoes\10.jpg" />
+    <None Include="wwwroot\img\products\shoes\1_b.jpg" />
+    <None Include="wwwroot\img\products\shoes\2.jpg" />
+    <None Include="wwwroot\img\products\shoes\2_b.jpg" />
+    <None Include="wwwroot\img\products\shoes\3.jpg" />
+    <None Include="wwwroot\img\products\shoes\3_b.jpg" />
+    <None Include="wwwroot\img\products\shoes\4.jpg" />
+    <None Include="wwwroot\img\products\shoes\4_b.jpg" />
+    <None Include="wwwroot\img\products\shoes\5.jpg" />
+    <None Include="wwwroot\img\products\shoes\5_b.jpg" />
+    <None Include="wwwroot\img\products\shoes\6.jpg" />
+    <None Include="wwwroot\img\products\shoes\6_b.jpg" />
+    <None Include="wwwroot\img\products\shoes\7.jpg" />
+    <None Include="wwwroot\img\products\shoes\7_b.jpg" />
+    <None Include="wwwroot\img\products\shoes\8.jpg" />
+    <None Include="wwwroot\img\products\shoes\8_b.jpg" />
+    <None Include="wwwroot\img\products\shoes\9.jpg" />
+    <None Include="wwwroot\img\products\shoes\large\.DS_Store" />
+    <None Include="wwwroot\img\products\shoes\large\1.jpg" />
+    <None Include="wwwroot\img\products\shoes\large\2.jpg" />
+    <None Include="wwwroot\img\products\shoes\large\3.jpg" />
+    <None Include="wwwroot\img\products\shoes\large\4.jpg" />
+    <None Include="wwwroot\img\products\shoes\large\5.jpg" />
+    <None Include="wwwroot\img\products\shoes\product_detail_1.jpg" />
+    <None Include="wwwroot\img\products\shoes\product_detail_2.jpg" />
+    <None Include="wwwroot\img\products\shoes\thumb\.DS_Store" />
+    <None Include="wwwroot\img\products\shoes\thumb\1.jpg" />
+    <None Include="wwwroot\img\products\shoes\thumb\2.jpg" />
+    <None Include="wwwroot\img\search.svg" />
+    <None Include="wwwroot\img\slides\.DS_Store" />
+    <None Include="wwwroot\img\slides\slide_home_1.jpg" />
+    <None Include="wwwroot\img\slides\slide_home_1_vertical.jpg" />
+    <None Include="wwwroot\img\slides\slide_home_2.jpg" />
+    <None Include="wwwroot\img\slides\slide_home_2_2.jpg" />
+    <None Include="wwwroot\img\slides\slide_home_2_vertical.jpg" />
+    <None Include="wwwroot\img\slides\slide_home_3.jpg" />
+    <None Include="wwwroot\img\slides\slide_home_3_vertical.jpg" />
+    <None Include="wwwroot\img\slides\slide_home_4_vertical.jpg" />
+    <None Include="wwwroot\img\staff\.DS_Store" />
+    <None Include="wwwroot\img\staff\1_carousel.jpg" />
+    <None Include="wwwroot\img\staff\2_carousel.jpg" />
+    <None Include="wwwroot\img\staff\3_carousel.jpg" />
+    <None Include="wwwroot\img\staff\4_carousel.jpg" />
+    <None Include="wwwroot\img\staff\5_carousel.jpg" />
+    <None Include="wwwroot\img\stars.svg" />
+    <None Include="wwwroot\img\testimonial_1.jpg" />
+    <None Include="wwwroot\img\testimonial_2.jpg" />
+    <None Include="wwwroot\img\testimonial_3.jpg" />
+    <None Include="wwwroot\img\top_about.jpg" />
+    <None Include="wwwroot\img\top_banner_placeholder.jpg" />
+    <None Include="wwwroot\img\track_order.svg" />
+    <None Include="wwwroot\img\twitter_icon.svg" />
+    <None Include="wwwroot\img\user.svg" />
+    <None Include="wwwroot\img\video_fix.png" />
+    <None Include="wwwroot\img\youtube_icon.svg" />
+    <None Include="wwwroot\js\.DS_Store" />
+    <None Include="wwwroot\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\js\carousel-home-2.js" />
+    <None Include="wwwroot\js\carousel-home.js" />
+    <None Include="wwwroot\js\carousel-home.min.js" />
+    <None Include="wwwroot\js\carousel_with_thumbs.js" />
+    <None Include="wwwroot\js\common_scripts.js" />
+    <None Include="wwwroot\js\common_scripts.min.js" />
+    <None Include="wwwroot\js\footer-reveal.js" />
+    <None Include="wwwroot\js\footer-reveal.min.js" />
+    <None Include="wwwroot\js\isotope.min.js" />
+    <None Include="wwwroot\js\jquery.cookiebar.js" />
+    <None Include="wwwroot\js\jquery.magnific-popup.js" />
+    <None Include="wwwroot\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\js\jquery.mmenu.all.js" />
+    <None Include="wwwroot\js\jquery.nice-select.js" />
+    <None Include="wwwroot\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\js\lazyload.js" />
+    <None Include="wwwroot\js\lazyload.min.js" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\modernizr.js" />
+    <None Include="wwwroot\js\owl.carousel.js" />
+    <None Include="wwwroot\js\owl.carousel.min.js" />
+    <None Include="wwwroot\js\ResizeSensor.js" />
+    <None Include="wwwroot\js\ResizeSensor.min.js" />
+    <None Include="wwwroot\js\specific_listing.js" />
+    <None Include="wwwroot\js\sticky_sidebar.min.js" />
+    <None Include="wwwroot\js\theia-sticky-sidebar.js" />
+    <None Include="wwwroot\js\theia-sticky-sidebar.min.js" />
+    <None Include="wwwroot\js\video_header.js" />
+    <None Include="wwwroot\js\video_header.min.js" />
+    <None Include="wwwroot\js\wow.js" />
+    <None Include="wwwroot\js\wow.min.js" />
+    <None Include="wwwroot\sass\.DS_Store" />
+    <None Include="wwwroot\sass\about.scss" />
+    <None Include="wwwroot\sass\account.scss" />
+    <None Include="wwwroot\sass\blog.scss" />
+    <None Include="wwwroot\sass\cart.scss" />
+    <None Include="wwwroot\sass\checkout.scss" />
+    <None Include="wwwroot\sass\compass_app_log.txt" />
+    <None Include="wwwroot\sass\config.rb" />
+    <None Include="wwwroot\sass\contact.scss" />
+    <None Include="wwwroot\sass\error_track.scss" />
+    <None Include="wwwroot\sass\faq.scss" />
+    <None Include="wwwroot\sass\home_1.scss" />
+    <None Include="wwwroot\sass\leave_review.scss" />
+    <None Include="wwwroot\sass\listing.scss" />
+    <None Include="wwwroot\sass\product_page.scss" />
+    <None Include="wwwroot\sass\style.scss" />
+    <None Include="wwwroot\sass\_mixin.scss" />
+    <None Include="wwwroot\sass\_variables.scss" />
+    <None Include="wwwroot\video\.DS_Store" />
+    <None Include="wwwroot\video\intro.mp4" />
+    <None Include="wwwroot\video\intro.ogv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Views\Cart\Index.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

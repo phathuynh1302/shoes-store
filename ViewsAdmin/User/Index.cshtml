@@ -1,0 +1,110 @@
+﻿@using PRN211_ShoesStore.Models;
+@using PRN211_ShoesStore.Models.DTO;
+@using PRN211_ShoesStore.Models.Entity;
+@using Newtonsoft.Json;
+@model List<(PRN211_ShoesStore.Models.Entity.User user, long productsPurchased)>
+@{
+    Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
+}
+
+<div class="ec-content-wrapper">
+    <div class="content">
+        <div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+            <div>
+                <h1>Users</h1>
+                <p class="breadcrumbs">
+                    <span><a href="/Admin">Home</a></span>
+                    <span><i class="mdi mdi-chevron-right"></i></span>Users
+                </p>
+            </div>
+            <div>
+                <a href="#addShoesModal" class="btn btn-primary" data-toggle="modal"><i class="fa fa-plus-circle"></i> Add User</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-default ec-cat-list">
+                    <div class="card-body">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>Users</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="open-projects-table" data-toggle="table" data-pagination="true"
+                                   data-show-search-clear-button="true"
+                                   data-resizable="true"
+                                   data-page-size="10"
+                                   data-remember-order="true"
+                                   data-show-columns="true"
+                                   data-show-columns-toggle-all="true"
+                                   data-show-pagination-switch="true"
+                                   data-buttons="buttons"
+                                   data-search="true"
+                                   data-buttons-class="light"
+                                   data-show-export="true" data-page-list="[10, 25, 50, 100, all]"
+                                   class="table table-hover pagination-sm">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true" data-width="120">
+                                            <a>Name</a>
+                                        </th>
+                                        <th data-sortable="true">
+                                            <a>Email</a>
+                                        </th>
+                                        <th data-sortable="true">
+                                            <a>Phone</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Total Purchased</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Product Purchased</a>
+                                        </th>
+                                        <th data-sortable="true">
+                                            <a>Address</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Status</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Joined on</a>
+                                        </th>
+                                        <th data-sortable="false" data-searchable="false">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                    @if (Model != null && Model.Count() > 0)
+                                    {
+                                        @foreach (var user in Model)
+                                        {
+                                            <tr>
+                                                <td>@user.user.name</td>
+                                                <td>@user.user.email</td>
+                                                <td>@user.user.phone</td>
+                                                <td>$@user.user.Orders.Sum(o=>o.price).ToString("#,##0.00")</td>
+                                                <td>@user.productsPurchased</td>
+                                                <td>@user.user.address</td>
+                                                <td>@(user.user.status ? "Active" : "Inactive")</td>
+                                                <td>
+                                                    <time datetime="2023-01-22">@user.user.createDate</time>
+                                                </td>
+                                                <td style="border-bottom:none !important;border-left:none !important;border-right:none !important;">
+                                                    
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Content -->
+</div>

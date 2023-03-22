@@ -1,0 +1,181 @@
+﻿@using Newtonsoft.Json;
+@using PRN211_ShoesStore.Models;
+@using PRN211_ShoesStore.Models.DTO;
+@using PRN211_ShoesStore.Models.Entity;
+@using System.Text.Json
+@model OrderDetailsViewDto;
+@{
+	Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
+	string formattedPhone = string.Format("{0:### ### ####}", double.Parse(Model.Order.user.phone));
+	int index = 0;
+	decimal total = 0;
+}
+<div class="ec-content-wrapper">
+	<div class="content">
+		<div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+			<p class="breadcrumbs">
+				<span><a href="/Admin/Order/">Orders</a></span>
+				<span><i class="mdi mdi-chevron-right"></i></span>Order Detail
+			</p>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="ec-odr-dtl card card-default">
+					<div class="card-header card-header-border-bottom d-flex justify-content-between">
+						<h2 class="ec-odr">
+							Order Detail<br>
+							<span class="small">Order ID: #@Model.Order.orderId</span>
+						</h2>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-xl-3 col-lg-4 col-sm-6">
+								<p class="text-dark mb-2"><strong>Customer:</strong></p>
+								<address>
+									<span><span>Name:</span> @Model.Order.user.username</span>
+									<br> <span>Address:</span> @Model.Order.user.address
+									<br> <span>Email:</span> @Model.Order.user.email
+									<br> <span>Phone:</span>  +@formattedPhone
+								</address>
+							</div>
+							<div class="col-xl-3 col-lg-4 col-sm-6 disp-none"></div>
+							<div class="col-xl-4 disp-none"></div>
+							<div class="col-xl-2 col-lg-4 col-sm-6">
+								<p class="text-dark mb-2"><strong>Details:</strong></p>
+								<address>
+									<span>Date:</span> <time datetime="2023-01-22">@Model.Order.createDate</time>
+								</address>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<h3 class="tbl-title">PRODUCT SUMMARY</h3>
+								<div class="table-responsive">
+									<table class="table table-striped o-tbl">
+										<thead>
+											<tr class="line">
+												<td><strong>#</strong></td>
+												<td class="text-left"><strong>IMAGE</strong></td>
+												<td class="text-left"><strong>PRODUCT</strong></td>
+												<td class="text-left"><strong>PRICE</strong></td>
+												<td class="text-left"><strong>COLOR</strong></td>
+												<td class="text-left"><strong>SIZE</strong></td>
+												<td class="text-center"><strong>QUANTITY</strong></td>
+												<td class="text-right"><strong>SUBTOTAL</strong></td>
+											</tr>
+										</thead>
+										<tbody>
+											@if (Model.OrderDetails != null && Model.OrderDetails.Count > 0)
+											{
+												@foreach (var orderDetail in Model.OrderDetails)
+												{
+													decimal orderSubTotal = orderDetail.shoes.price * orderDetail.quantity;
+													total += orderSubTotal;
+
+													<tr>
+														<td>@(++index)</td>
+														<td>
+															<img class="product-img img-fluid"
+														 src="@orderDetail.shoes.shoes.image" alt="" />
+														</td>
+														<td>
+															<strong>@orderDetail.shoes.shoes.name</strong><br>
+															@if (orderDetail.shoes.shoes.shoesDetails.Length > 60)
+															{
+																@orderDetail.shoes.shoes.shoesDetails.Substring(0, 60)
+															}
+															else
+															{
+																@orderDetail.shoes.shoes.shoesDetails
+															}
+														</td>
+														<td class="text-left">$@orderDetail.shoes.price.ToString("#,##0.00")</td>
+														<td class="text-left">
+															@if (orderDetail.shoes.ColorSpecificallyShoes != null && orderDetail.shoes.ColorSpecificallyShoes.Any())
+															{
+																@orderDetail.shoes.ColorSpecificallyShoes.FirstOrDefault()?.color?.Name
+															}
+														</td>
+														<td class="text-left">
+															@if (orderDetail.shoes.SpecificallyShoesSize != null && orderDetail.shoes.SpecificallyShoesSize.Any())
+															{
+																@orderDetail.shoes.SpecificallyShoesSize.FirstOrDefault()?.size?.sizeNumber
+															}
+														</td>
+														<td class="text-center">@orderDetail.quantity.ToString("#,##")</td>
+														<td class="text-right">$@orderSubTotal.ToString("#,##0.00")</td>
+													</tr>
+												}
+												<tr>
+													<td colspan="6"></td>
+													<td class="text-right"><strong>Taxes:</strong></td>
+													<td class="text-right"><strong>N/A</strong></td>
+												</tr>
+												<tr>
+													<td colspan="6">
+													</td>
+													<td class="text-right"><strong>Total:</strong></td>
+													<td class="text-right"><strong>$@total.ToString("#,##0.00")</strong></td>
+												</tr>
+												<tr>
+													<td colspan="6">
+													</td>
+													<td class="text-right"><strong>Payment Status:</strong></td>
+													<td class="text-right"><strong>N/A</strong></td>
+												</tr>
+											}
+										</tbody>
+									</table>
+								</div>
+								<form asp-action="UpdateStatus" method="post">
+									<div class="row justify-content-end inc-total">
+										<div class="col-lg-3 col-xl-3 col-xl-3 ml-sm-auto">
+
+											<ul class="list-unstyled mt-3">
+												<li class="mid pb-3 text-dark">
+													<strong style="margin-left: 25px;">Order Status:</strong>
+													<select id="NewStatus" name="NewStatus" class="d-inline-block float-right text-default">
+														@if (Model.Order.status == (int)OrderStatus.ACCEPTED)
+														{
+															<option value=@((int)OrderStatus.WAITING) selected>Accepted</option>
+														}
+														else
+														{
+															<option value=@((int)OrderStatus.ACCEPTED)>Accepted</option>
+														}
+														@if (Model.Order.status == (int)OrderStatus.WAITING)
+														{
+															<option value=@(false) selected>Waiting</option>
+														}
+														else 
+														{
+															<option value=@((int)OrderStatus.WAITING)>Waiting</option>
+														}
+														@if (Model.Order.status == (int)OrderStatus.DENIED)
+														{
+															<option value=@(false) selected>Denied</option>
+														}
+														else
+														{
+															<option value=@((int)OrderStatus.WAITING)>Denied</option>
+														}
+													</select>
+												</li>
+											</ul>
+
+											<input type="hidden" name="OrderId" value="@Model.Order.orderId" />
+											<button type="submit" style="float:right;" class="btn mt-2 btn-primary btn-pill">
+												Change Order
+												Status
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- End Content -->
+</div>

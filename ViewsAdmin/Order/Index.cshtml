@@ -1,0 +1,108 @@
+﻿@using PRN211_ShoesStore.Models;
+@using PRN211_ShoesStore.Models.Entity;
+@model List<PRN211_ShoesStore.Models.Entity.Order>;
+@{
+    Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
+}
+<div class="ec-content-wrapper">
+	<div class="content">
+		<div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+			<p class="breadcrumbs">
+				<span><a href="index.html">Home</a></span>
+				<span><i class="mdi mdi-chevron-right"></i></span>Orders
+			</p>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="card card-default">
+					<div class="card-body">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>Orders</h4>
+                                </div>
+                            </div>
+                        </div>
+						<div class="table-responsive">
+                            <table id="open-projects-table" data-pagination="true"
+                                   data-toggle="table"
+                                   data-show-search-clear-button="true"
+                                   data-page-size="10"
+                                   data-remember-order="true"
+                                   data-show-columns="true"
+                                   data-show-pagination-switch="true"
+                                   data-buttons="buttons"
+                                   data-search="true"
+                                   data-buttons-class="light"
+                                   data-show-export="true" data-page-list="[10, 25, 50, 100, all]"
+                                   class="table table-hover pagination-sm">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true">
+                                            <a>Customer</a>
+                                        </th>
+                                        <th data-sortable="true">
+                                            Email
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Created at</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            Total Amount
+                                        </th>
+                                        <th data-sortable="true">
+                                            Phone
+                                        </th>
+                                        <th data-sortable="true">
+                                            Address
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Status</a>
+                                        </th>
+                                        <th data-sortable="false" data-searchable="false">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                    @if (Model != null && Model.Count > 0)
+                                    {
+                                        @foreach (var order in Model)
+                                        {
+                                            <tr>
+                                                <td>@order.user.name</td>
+                                                <td>@order.user.email</td>
+                                                <td>@order.createDate</td>
+                                                <td>@order.price.ToString("#,##0.00")</td>
+                                                <td>@order.user.phone</td>
+                                                <td>@order.user.address</td>
+                                               
+                                                @if (order.status==(int)OrderStatus.WAITING)
+                                                {
+                                                    <td>Waiting</td>                    
+                                                }
+                                                else @if (order.status == (int)OrderStatus.ACCEPTED)
+                                                {
+                                                    <td>Accepted</td>                        
+                                                }
+                                                @if (order.status==(int)OrderStatus.DENIED)
+                                                {
+                                                    <td>Denied</td>                        
+                                                }
+                                                <td>
+                                                    <a asp-action="Details" asp-route-id="@order.orderId" class="btn btn-primary" style="font-weight: normal;">
+                                                        Detail
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- End Content -->
+</div>
