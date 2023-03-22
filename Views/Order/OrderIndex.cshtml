@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PRN211_ShoesStore.Models.Entity.CartItemDetails>
+@{
+	ViewData["Title"] = "Index Page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="bg_gray">
+	<div class="container margin_30">
+		<div class="page_header">
+			<div class="breadcrumbs">
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Category</a></li>
+					<li>Page active</li>
+				</ul>
+			</div>
+		</div>
+		<!-- /page_header -->
+		<!--2-->
+		<!--2-->
+		<div class="col-lg-4 col-md-6">
+			<div class="step last">
+				<h3>Order Summary</h3>
+				<div class="box_general summary">
+					@foreach (var item in Model)
+					{
+						<ul>
+							<li class="clearfix">
+								<em>
+									${@item.Quantity}x ${@item.ShoesName}
+								</em>
+								<span>
+									${@item.Price} VND
+								</span>
+							</li>
+							@*<li class="clearfix"><em>2x Armor Air Zoom Alpha</em> <span>$115.00</span></li>*@
+						</ul>
+					}
+					<ul>
+						<li class="clearfix"><em><strong>Subtotal</strong></em>tong tien<span> </span></li>
+						<li class="clearfix"><em><strong>Shipping</strong></em> <span>$0</span></li>
+
+					</ul>
+
+					<div class="total clearfix">TOTAL <span>$450.00</span></div>
+					@*<div class="form-group">
+						<label class="container_check">
+							Register to the Newsletter.
+							<input type="checkbox" checked>
+							<span class="checkmark"></span>
+						</label>
+					</div>*@
+
+					<a asp-area="" asp-controller="Order" asp-action="checkout" class="btn_1 full-width">Confirm and Pay</a>
+				</div>
+				<!-- /box_general -->
+			</div>
+			<!-- /step -->
+		</div>
+	</div>
+	<!-- /row -->
+	</div>
+	<!-- /container -->
+</main>
+<!--/main-->

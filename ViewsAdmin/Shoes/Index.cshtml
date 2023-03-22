@@ -1,0 +1,708 @@
+﻿@using PRN211_ShoesStore.Models;
+@using PRN211_ShoesStore.Models.DTO;
+@using PRN211_ShoesStore.Models.Entity;
+@using Newtonsoft.Json;
+@model ShoesViewDto;
+@{
+    Layout = "~/ViewsAdmin/Shared/_AdminLayout.cshtml";
+    var serializerSettings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+}
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<div class="ec-content-wrapper">
+    <div class="content">
+        <div class="breadcrumb-wrapper d-flex align-items-center justify-content-between">
+            <div>
+                <h1>Shoes</h1>
+                <p class="breadcrumbs">
+                    <span><a href="index.html">Home</a></span>
+                    <span><i class="mdi mdi-chevron-right"></i></span>Shoes
+                </p>
+            </div>
+            <div>
+                <a href="#addShoesModal" class="btn btn-primary" data-toggle="modal"><i class="fa fa-plus-circle"></i> Add Shoes</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-default ec-cat-list">
+                    <div class="card-body">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>Shoes</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="open-projects-table" data-toggle="table" data-pagination="true"
+                                   data-show-search-clear-button="true"
+                                   data-resizable="true"
+                                   data-page-size="10"
+                                   data-remember-order="true"
+                                   data-show-columns="true"
+                                   data-show-columns-toggle-all="true"
+                                   data-show-pagination-switch="true"
+                                   data-buttons="buttons"
+                                   data-search="true"
+                                   data-buttons-class="light"
+                                   data-show-export="true" data-page-list="[10, 25, 50, 100, all]"
+                                   class="table table-hover pagination-sm">
+                                <thead>
+                                    <tr>
+                                        <th data-sortable="true" data-width="175">
+                                            <a>Images</a>
+                                        </th>
+                                        <th data-sortable="true" data-width="120">
+                                            <a>Name</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false" data-visible="false">
+                                            <a>Detail</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Price</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Quantity Sold</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Stock</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="false">
+                                            <a>Status</a>
+                                        </th>
+                                        <th data-sortable="true" data-visible="false" data-searchable="false">
+                                            <a>Lauch Date</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="true">
+                                            <a>Categories</a>
+                                        </th>
+                                        <th data-sortable="true" data-searchable="true" data-visible="false">
+                                            <a>Colors</a>
+                                        </th>
+                                        <th data-sortable="false" data-searchable="false">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                    @if (Model.Shoes != null && Model.Shoes.Count() > 0)
+                                    {
+                                        @foreach (var shoes in Model.Shoes)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="slideshow">
+                                                        @if (shoes.image != null)
+                                                        {
+                                                            <img src="@shoes.image" alt="image" class="img-fluid" />
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>@shoes.name</td>
+                                                <td>@shoes.shoesDetails</td>
+                                                <td>$@shoes.price.ToString("#,##0.00")</td>
+                                                <td>@(Model.QuantitySoldByShoesId.TryGetValue(shoes.id, out long value) ? value : "0")</td>
+                                                <td>@shoes.quantity</td>
+                                                <td>@(@shoes.status ? "Active" : "Inactive")</td>
+                                                <td>
+                                                    <time datetime="2023-01-22">@shoes.launchDate</time>
+                                                </td>
+                                                <td>
+                                                    @if (shoes.CategoryShoes != null && shoes.CategoryShoes.Count > 0)
+                                                    {
+                                                        <span class="ec-sub-cat-list">
+                                                            <span class="ec-sub-cat-count" title="Total Sub Categories">@shoes.CategoryShoes.Count</span>
+                                                            @foreach (var category in shoes.CategoryShoes)
+                                                            {
+                                                                <span class="ec-sub-cat-tag">@category.category.name</span>
+                                                            }
+                                                        </span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @if (shoes.ShoesColors != null && shoes.ShoesColors.Count > 0)
+                                                    {
+                                                        @foreach (var color in shoes.ShoesColors)
+                                                        {
+                                                            <span class="ec-sub-cat-tag">@color.color.Name</span>
+                                                        }
+                                                    }
+                                                   
+                                                </td>
+
+                                                <td style="border-bottom:none !important;border-left:none !important;border-right:none !important;">
+                                                    <a href="#editShoesModal" class="edit" data-toggle="modal" data-id="@shoes.id"
+                                               data-name="@shoes.name"
+                                               data-image="@shoes.image"
+                                               data-status=@(@shoes.status ? true : false)
+                                               data-detail="@shoes.shoesDetails"
+                                               data-price="@shoes.price.ToString("#.##")"
+                                               data-lauch="@shoes.launchDate"
+                                               data-categories="@JsonConvert.SerializeObject(shoes.CategoryShoes.Select(c => c.category).ToList(), serializerSettings)"
+                                               data-colors="@JsonConvert.SerializeObject(shoes.ShoesColors.Select(c => c.color).ToList(), serializerSettings)">
+                                                        <i class="material-icons" data-toggle="tooltip"
+                                                   title="Edit">&#xE254;</i>
+                                                    </a>
+                                                    <a href="#deleteShoesModal" class="delete" data-toggle="modal" accesskey=""
+                                               data-id="@shoes.id">
+                                                        <i class="material-icons" data-toggle="tooltip"
+                                                   title="Delete">&#xE872;</i>
+                                                    </a>
+                                                    <a href="#addSpecificShoesModal" class="addSpecificShoes" data-toggle="modal" accesskey=""
+                                               data-name="@shoes.name"
+                                               data-id="@shoes.id"
+                                               data-price="@shoes.price.ToString("#.##")"
+                                               data-colors="@JsonConvert.SerializeObject(shoes.ShoesColors.Select(c => c.color).ToList(), serializerSettings)">
+                                                        <i class="fa fa-plus-circle" data-toggle="tooltip"
+                                                   title="Add Product"></i>
+                                                    </a>
+
+                                                    <a href="#" class="shownextrow" data-toggle="modal" accesskey="" data-id="@shoes.id">
+                                                        <i class="fa fa-arrow-circle-right" data-toggle="tooltip"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr style="display:none">
+                                                <td colspan="11">
+                                                    <table data-toggle="table"
+                                                   class="table table-hover pagination-sm">
+                                                        <thead>
+                                                            <tr>
+                                                                <th data-sortable="true" data-width="500">
+                                                                    <a>Name</a>
+                                                                </th>
+                                                                <th data-sortable="false" data-searchable="false">Price</th>
+                                                                <th data-sortable="false" data-searchable="false">Quantity</th>
+                                                                <th data-sortable="false" data-searchable="false">Color</th>
+                                                                <th data-sortable="false" data-searchable="false">Size</th>
+                                                                <th data-sortable="false" data-searchable="false">
+                                                                    <a>Status</a>
+                                                                </th>
+                                                                <th data-sortable="false" data-searchable="false" data-width="100">
+                                                                    Action
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="table-body">
+                                                            @if (shoes.SpecificallyShoes != null && shoes.SpecificallyShoes.Count > 0)
+                                                            {
+                                                                @foreach (var subItem in shoes.SpecificallyShoes)
+                                                                {
+                                                                    <tr>
+                                                                        <td style="font-weight:normal;">@subItem.name</td>
+                                                                        <td style="font-weight:normal;">@subItem.price.ToString("#,##0.00")</td>
+                                                                        <td style="font-weight:normal;">@subItem.quantity</td>
+                                                                        <td style="font-weight:normal;">@subItem.ColorSpecificallyShoes.FirstOrDefault().color.Name</td>
+                                                                        <td style="font-weight:normal;">@subItem.SpecificallyShoesSize.FirstOrDefault().size.sizeNumber</td>
+                                                                        <td style="font-weight:normal;">@(subItem.status ? "Active" : "Inactive")</td>
+                                                                        <td>
+                                                                            <a href="#editSpecificShoesModal" class="editSpecificShoes" data-toggle="modal" 
+                                                                            data-id="@subItem.id"
+                                                               data-price="@subItem.price.ToString("#.##")"
+                                                               data-quantity="@subItem.quantity"
+                                                               data-sid="@subItem.shoesId"
+                                                               data-colors="@JsonConvert.SerializeObject(shoes.ShoesColors.Select(c => c.color).ToList(), serializerSettings)"
+                                                               data-color="@subItem.ColorSpecificallyShoes.FirstOrDefault().color.Id"
+                                                               data-size="@subItem.SpecificallyShoesSize.FirstOrDefault().size.id"
+                                                               data-name="@subItem.name" data-status=@(@subItem.status ? true : false)>
+                                                                                <i class="material-icons" data-toggle="tooltip"
+                                                                   title="Edit">&#xE254;</i>
+                                                                            </a>
+                                                                            <a href="#deleteSpecificShoesModal" class="deleteSpecificShoes" data-toggle="modal" accesskey=""
+                                                               data-id="@subItem.id">
+                                                                                <i class="material-icons" data-toggle="tooltip"
+                                                                   title="Delete">&#xE872;</i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Content -->
+</div>
+
+
+
+<!-- Add Modal HTML -->
+<div id="addShoesModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form id="addShoes" action="/Admin/Shoes/Add" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Shoes</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Shoes Name</label>
+                        <input type="text" class="form-control" name="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categories</label>
+                        <select name="Categories" asp-for="CreateShoesDto.Categories" class="form-control" multiple="multiple" placeholder="Select category" required id="add-categories">
+                            @if (Model.Categories != null)
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category.id">@category.name</option>
+                                }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Colors</label>
+                        <div class="input-group">
+                            <select name="Colors" asp-for="CreateShoesDto.Colors" class="form-control col-12" multiple="multiple" placeholder="Select color(s)" required id="add-colors">
+                                @if (Model.Colors != null)
+                                    @foreach (var color in Model.Colors)
+                                    {
+                                        <option value="@color.Id">@color.Name</option>
+                                    }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" asp-for="CreateShoesDto.Price" name="Price" class="form-control" placeholder="Amount" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid decimal number with up to two decimal places (e.g. 10.99)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Lauch Date:</label>
+                        <input type="datetime-local" id="datetime" name="LaunchDate" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Shoes Detail</label>
+                        <textarea name="ShoesDetails" rows="4" cols="50" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <input type="file" id="imgFile" class="form-control" name="File" accept="image/*" onchange="previewImage()" required />
+                            <div class="form-group col-12 d-flex justify-content-center align-items-center">
+                                <img id="preview" src="#" alt="Selected image" class="img-fluid" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-success" value="Add">
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- Add Modal HTML -->
+<!-- Edit Modal HTML -->
+<div id="editShoesModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form id="addShoes" action="/Admin/Shoes/Edit" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" />
+                <input type="hidden" name="ShoesImage" />
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Shoes</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Shoes Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="status" name="status" class="form-control">
+                            <option value=@(true)>Active</option>
+                            <option value=@(false)>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Categories</label>
+                        <select name="Categories" asp-for="CreateShoesDto.Categories" class="form-control" multiple="multiple" placeholder="Select category" required id="edit-categories">
+                            @if (Model.Categories != null)
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category.id">@category.name</option>
+                                }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Colors</label>
+                        <div class="input-group">
+                            <select name="Colors" asp-for="CreateShoesDto.Colors" class="form-control col-12" multiple="multiple" placeholder="Select color(s)" required id="edit-colors">
+                                @if (Model.Colors != null)
+                                    @foreach (var color in Model.Colors)
+                                    {
+                                        <option value="@color.Id">@color.Name</option>
+                                    }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input id="edit-price" type="text" asp-for="CreateShoesDto.Price" name="price" class="form-control" placeholder="Amount" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid decimal number with up to two decimal places (e.g. 10.99)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Lauch Date:</label>
+                        <input type="datetime-local" id="datetime" name="LaunchDate" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Shoes Detail</label>
+                        <textarea name="ShoesDetails" asp-for="CreateShoesDto.ShoesDetails" rows="4" cols="50" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="row no-gutters">
+                            <input type="file" id="imgFile2" class="form-control" name="File" accept="image/*" onchange="previewImage2()" />
+                            <div class="form-group col-12 d-flex justify-content-center align-items-center">
+                                <img id="preview2" src="#" alt="Selected image" class="img-fluid" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- End Edit Modal HTML -->
+<!-- Delete Modal HTML -->
+<div id="deleteShoesModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="deleteShoes" action="/Admin/Shoes/Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" />
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Shoes</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this Records?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- Delete Modal HTML -->
+<!-- Add Specific Shoes Modal HTML -->
+<div id="addSpecificShoesModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form id="addSpecificShoes" action="/Admin/Shoes/SpecificShoes/Add" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Specific Shoes</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="ShoesId" asp-for="CreateSpecificShoesDto.ShoesId"/>
+                    <div class="form-group">
+                        <label>Specific Shoes Name:</label>
+                        <input type="text" class="form-control" name="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sizes</label>
+                        <select name="Size" asp-for="CreateSpecificShoesDto.Size" class="form-control" placeholder="Select size" required id="add-specific-shoes-size">
+                            @if (Model.Categories != null)
+                                @foreach (var size in Model.Sizes)
+                                {
+                                    <option value="@size.id">@size.sizeNumber</option>
+                                }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Colors</label>
+                        <div class="input-group">
+                            <select name="Color" asp-for="CreateSpecificShoesDto.Color" class="form-control slug-title" placeholder="Select color(s)" required id="add-specific-shoes-colors">
+                                
+                                <option></option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" asp-for="CreateSpecificShoesDto.Price" name="Price" class="form-control" placeholder="Amount" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid decimal number with up to two decimal places (e.g. 10.99)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="text" asp-for="CreateSpecificShoesDto.Quantity" name="Quantity" class="form-control" placeholder="Quantity" required pattern="^\d+$" title="Please enter an integer number">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-success" value="Add">
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- Add Specific Shoes Modal HTML -->
+
+<!-- Edit Specific Shoes Modal HTML -->
+<div id="editSpecificShoesModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form id="editSpecificShoes" action="/Admin/Shoes/SpecificShoes/Edit" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Specific Shoes</h4>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" asp-for="CreateSpecificShoesDto.id" />
+                    <input type="hidden" name="ShoesId" asp-for="CreateSpecificShoesDto.ShoesId" />
+                    <div class="form-group">
+                        <label>Specific Shoes Name:</label>
+                        <input type="text" class="form-control" name="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sizes</label>
+                        <select name="Size" asp-for="CreateSpecificShoesDto.Size" class="form-control" placeholder="Select size" required id="edit-specific-shoes-size">
+                            @if (Model.Categories != null)
+                                @foreach (var size in Model.Sizes)
+                                {
+                                    <option value="@size.id">@size.sizeNumber</option>
+                                }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Colors</label>
+                        <div class="input-group">
+                            <select name="Color" asp-for="CreateSpecificShoesDto.Color" class="form-control slug-title" placeholder="Select color(s)" required id="edit-specific-shoes-colors">
+                                
+                                <option></option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="text" asp-for="CreateSpecificShoesDto.Price" name="Price" class="form-control" placeholder="Amount" required pattern="^\d+(\.\d{1,2})?$" title="Please enter a valid decimal number with up to two decimal places (e.g. 10.99)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="text" asp-for="CreateSpecificShoesDto.Quantity" name="Quantity" class="form-control" placeholder="Quantity" required pattern="^\d+$" title="Please enter an integer number">
+                    </div>
+                    <div class="form-group">
+						<label>Status</label>
+						<select id="status" name="status" asp-for="CreateSpecificShoesDto.Status" class="form-control slug-title">
+							<option value=@(true)>Active</option>
+							<option value=@(false)>Inactive</option>
+						</select>
+					</div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-info" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- Add Specific Shoes Modal HTML -->
+
+<script>
+    @*Select2*@
+        $(document).ready(function () {
+            $('#add-categories').select2();
+            $('#add-colors').select2();
+            $('#edit-categories').select2();
+            $('#edit-colors').select2();
+        });
+    @*Pass data from td to editShoesModal*@
+        $(document).on("click", ".edit", function () {
+            var id = $(this).data("id");
+            var name = $(this).data("name");
+            var status = $(this).data("status");
+            var detail = $(this).data("detail");
+            var price = $(this).data("price");
+            var lauch = $(this).data("lauch");
+            var image = $(this).data("image");
+            var categories = $(this).data("categories");
+            var cate = JSON.stringify(categories);
+            var color = $(this).data("colors");
+            var colors = JSON.stringify(color);
+            var categorySelect = $('#edit-categories');
+            var colorSelect = $('#edit-colors');
+            $('#edit-categories').val(null).trigger('change');
+            colorSelect.val(null).trigger('change');
+
+            $("#editShoesModal input[name=id]").val(id);
+            $("#editShoesModal input[name=ShoesImage]").val(image);
+            $("#editShoesModal input[name=name]").val(name);
+            $("#editShoesModal select[name=status]").val(status);
+            $("#editShoesModal textarea[name=ShoesDetails]").val(detail);
+            $("#edit-price").val(price);
+            const dateObj = new Date(lauch);
+            const formattedDate = dateObj.toISOString().slice(0, 16);
+            $("#editShoesModal input[name=LaunchDate]").val(formattedDate);
+
+            const idCate = categories.map(category => category.id);
+            const idColor = color.map(color => color.Id);
+            $('#edit-categories').val(idCate).trigger("change");
+            colorSelect.val(idColor).trigger("change");
+            $("#preview2").attr("src", image);
+            console.log(categorySelect);
+        });
+
+
+    @*Delete*@
+        $(document).on("click", ".delete", function () {
+            var id = $(this).data("id");
+            $("#deleteShoesModal input[name=id]").val(id);
+        });
+
+
+    $(document).on("click", ".addSpecificShoes", function () {
+        var colors = $(this).data("colors");
+        var name = $(this).data("name");
+                    var price = $(this).data("price");
+        var ShoesId = $(this).data("id");
+
+        $("#addSpecificShoes input[name=Name]").val(name);
+        $("#addSpecificShoes input[name=Price]").val(price);
+        $("#addSpecificShoes input[name=ShoesId]").val(ShoesId);
+        var select = $('#add-specific-shoes-colors');
+        select.empty(); // Remove any existing options
+        $.each(colors, function (_, color) {
+            select.append($('<option></option>').attr('value', color.Id).text(color.Name));
+        });
+    });
+    
+    //Edit SS
+    $(document).on("click", ".editSpecificShoes", function () {
+        var colors = $(this).data("colors");
+        var name = $(this).data("name");
+        var price = $(this).data("price");
+        var id = $(this).data("id");
+        var ShoesId = $(this).data("sid");
+        var colorS = $(this).data("color");
+        var size = $(this).data("size");
+        var quantity = $(this).data("quantity");
+        var status = $(this).data("status");
+        $("#editSpecificShoes input[name=Name]").val(name);
+        $("#editSpecificShoes input[name=Price]").val(price);
+        $("#editSpecificShoes input[name=Quantity]").val(quantity);
+        $("#editSpecificShoes input[name=id]").val(id);
+        $("#editSpecificShoes input[name=ShoesId]").val(ShoesId);
+        $("#editCategoryModal select[name=status]").val(status);
+        $("#edit-specific-shoes-size").val(size);
+        var select = $('#edit-specific-shoes-colors');
+        select.empty(); // Remove any existing options
+        $.each(colors, function (_, color) {
+            select.append($('<option></option>').attr('value', color.Id).text(color.Name));
+        });
+        $("#editCategoryModal select[name=Color]").val(colorS);
+    });
+
+    var fileSelected = false;
+    //previewImage
+    function previewImage() {
+        var preview = document.getElementById("preview");
+        var file = document.getElementById("imgFile").files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+            fileSelected = true;
+        } else {
+            preview.src = "";
+            fileSelected = false;
+        }
+    }
+    function validateForm() {
+        if (!fileSelected) {
+            alert('Please select a file');
+            return false;
+        }
+        return true;
+    }
+
+    function previewImage2() {
+        const fileInput = document.getElementById("imgFile2");
+        const previewImg = document.getElementById("preview2");
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                previewImg.src = event.target.result;
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+
+</script>
+<script>
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = ('0' + (now.getMonth() + 1)).slice(-2);
+    var day = ('0' + now.getDate()).slice(-2);
+    var hours = ('0' + now.getHours()).slice(-2);
+    var minutes = ('0' + now.getMinutes()).slice(-2);
+    var dateTimeString = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+    document.getElementById('datetime').value = dateTimeString;
+</script>
+<script>
+    $(document).ready(function () {
+        $("a.shownextrow").click(function () {
+            $(this).closest("tr").next().toggle();
+        });
+    });
+</script>

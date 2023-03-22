@@ -1,0 +1,16 @@
+﻿@if (TempData["Message"] != null)
+{
+	<script>
+		toastr.success('@TempData["Message"]', '', {
+		positionClass: 'toast-bottom-right'
+	});
+	</script>
+}
+@if (TempData["Error"] != null)
+{
+	<script>
+	toastr.error('@TempData["Error"]', '', {
+		positionClass: 'toast-bottom-right'
+	});
+	</script>
+}
